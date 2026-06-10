@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBQ & Grillhaus – Cocktail & Mocktail Karte</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;500;600&display=swap');
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96B;
+    --gold-dim: #8B6F2E;
+    --bg-deep: #0A0704;
+    --bg-card: #140E06;
+    --text: #F5EDD8;
+    --text-dim: #A08860;
+    --ember: #FF6B2B;
+    --teal: #2BBFB0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .poster {
+    width: 390px;
+    height: 693px;
+    background: var(--bg-deep);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--gold-dim);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .poster::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(201,168,76,0.10) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .header {
+    padding: 16px 20px 0;
+    text-align: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-line {
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .brand-name span { color: var(--gold-light); }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 7px 16px 0;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+
+  .divider-diamond {
+    width: 4px; height: 4px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px 0;
+    flex-shrink: 0;
+  }
+
+  .section-label-text {
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .section-label-text.cocktail { color: var(--ember); }
+  .section-label-text.mocktail { color: var(--teal); }
+
+  .section-label-line { flex: 1; height: 1px; }
+  .section-label-line.cocktail { background: linear-gradient(90deg, rgba(255,107,43,0.5), transparent); }
+  .section-label-line.mocktail { background: linear-gradient(90deg, rgba(43,191,176,0.5), transparent); }
+
+  .cocktails {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    padding: 5px 10px 0;
+    flex-shrink: 0;
+  }
+
+  .mocktails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 5px 10px 0;
+    flex-shrink: 0;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border-radius: 5px;
+    padding: 8px 8px 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card.cocktail-card { border: 1px solid rgba(255,107,43,0.20); }
+  .card.cocktail-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    opacity: 0.6;
+  }
+
+  .card.mocktail-card { border: 1px solid rgba(43,191,176,0.20); }
+  .card.mocktail-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    opacity: 0.6;
+  }
+
+  .card-emoji {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .cocktail-card .card-name { color: var(--gold-light); }
+  .mocktail-card .card-name { color: var(--teal); }
+
+  .card-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .cocktail-card .card-price { color: var(--ember); }
+  .mocktail-card .card-price { color: var(--teal); }
+
+  .card-price span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 7px;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .footer {
+    padding: 8px 12px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+
+  .footer-text { flex: 1; }
+
+  .footer-cta {
+    font-family: 'Playfair Display', serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 2px;
+  }
+
+  .footer-sub {
+    font-size: 7px;
+    color: var(--text-dim);
+    line-height: 1.45;
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="header">
+    <div class="brand-line">Innsbruck · Schützenstraße 48</div>
+    <div class="brand-name">BBQ &amp; <span>Grillhaus</span></div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-label-text cocktail">🍹 Cocktails</span>
+    <div class="section-label-line cocktail"></div>
+  </div>
+
+  <div class="cocktails">
+    <div class="card cocktail-card">
+      <span class="card-emoji">🥥</span>
+      <div class="card-name">Piña Colada</div>
+      <div class="card-price">€8,50 <span>/ Glas</span></div>
+    </div>
+    <div class="card cocktail-card">
+      <span class="card-emoji">🍓</span>
+      <div class="card-name">Erdbeere Colada</div>
+      <div class="card-price">€8,50 <span>/ Glas</span></div>
+    </div>
+    <div class="card cocktail-card">
+      <span class="card-emoji">💙</span>
+      <div class="card-name">Blue Coco Colada</div>
+      <div class="card-price">€8,50 <span>/ Glas</span></div>
+    </div>
+    <div class="card cocktail-card">
+      <span class="card-emoji">☕</span>
+      <div class="card-name">Espresso Martini</div>
+      <div class="card-price">€8,00 <span>/ Glas</span></div>
+    </div>
+    <div class="card cocktail-card">
+      <span class="card-emoji">🥤</span>
+      <div class="card-name">Cuba Libre</div>
+      <div class="card-price">€8,00 <span>/ Glas</span></div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:6px;">
+    <span class="section-label-text mocktail">🌿 Mocktails</span>
+    <div class="section-label-line mocktail"></div>
+  </div>
+
+  <div class="mocktails">
+    <div class="card mocktail-card">
+      <span class="card-emoji">🥥</span>
+      <div class="card-name">Virgin Piña Colada</div>
+      <div class="card-price">€7,00 <span>/ Glas</span></div>
+    </div>
+    <div class="card mocktail-card">
+      <span class="card-emoji">🍓</span>
+      <div class="card-name">Virgin Erdbeere Colada</div>
+      <div class="card-price">€7,00 <span>/ Glas</span></div>
+    </div>
+    <div class="card mocktail-card">
+      <span class="card-emoji">🌿</span>
+      <div class="card-name">Nojito</div>
+      <div class="card-price">€7,00 <span>/ Glas</span></div>
+    </div>
+    <div class="card mocktail-card">
+      <span class="card-emoji">🥭</span>
+      <div class="card-name">Mango Tajín Spritz</div>
+      <div class="card-price">€7,50 <span>/ Glas</span></div>
+    </div>
+  </div>
+
+  <div class="divider" style="margin: 7px 12px 0;">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text" style="text-align:center;">
+      <div class="footer-cta">bbqgrillhouse.com</div>
+      <div class="footer-sub">Innsbruck · Schützenstraße 48 · +43 512 556541</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
